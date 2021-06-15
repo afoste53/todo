@@ -1,4 +1,4 @@
-import { Row } from "react-bootstrap";
+import { Col, Row, Button } from "react-bootstrap";
 import { useState } from "react";
 import "../App.css";
 import SearchBarComponent from "../components/SearchBarComponent";
@@ -6,7 +6,7 @@ import TodoListComponent from "../components/TodoListComponent";
 //import { todos } from "../data/todo_data_1";
 
 const HomeScreen = (props) => {
-  const todos = [
+  let [todos, setTodos] = useState([
     {
       title: "Go get milk",
       text: "Don't forget to go get milk on your way home from work",
@@ -103,12 +103,24 @@ const HomeScreen = (props) => {
       priority: "normal",
       dueDate: "",
     },
-  ];
+  ]);
 
   const [searchText, setSearchText] = useState("");
 
   const handleTextChange = (e) => {
     setSearchText(e.target.value);
+  };
+
+  const deleteTodo = (e) => {
+    console.log();
+    setTodos(
+      todos.filter(
+        (t) =>
+          t.title !==
+          e.target.parentElement.parentElement.parentElement.firstChild
+            .firstChild.textContent
+      )
+    );
   };
 
   return (
@@ -117,11 +129,22 @@ const HomeScreen = (props) => {
         <h1>Gabe's Todos</h1>
       </header>
 
-      <Row className="justify-content-center my-4">
+      <Row className="my-4 d-flex justify-content-center">
         <SearchBarComponent handleTextChange={handleTextChange} />
+        <Button>
+          <i className="fas fa-plus"></i>
+        </Button>
+        <Button>
+          <i className="far fa-trash-alt"></i>
+        </Button>
       </Row>
+
       <Row>
-        <TodoListComponent todos={todos} searchTerm={searchText} />
+        <TodoListComponent
+          todos={todos}
+          searchTerm={searchText}
+          deleteTodo={deleteTodo}
+        />
       </Row>
     </div>
   );

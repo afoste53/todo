@@ -1,6 +1,6 @@
 import { ButtonGroup, Button, Card } from "react-bootstrap";
 
-const TodoComponent = ({ todo }) => {
+const TodoComponent = ({ todo, deleteTodo }) => {
   return (
     <Card className="todo m-3">
       <Card.Header className="bg-navyish">
@@ -11,7 +11,7 @@ const TodoComponent = ({ todo }) => {
       </Card.Body>
       <Card.Footer>
         <ButtonGroup className="d-flex justify-content-around">
-          <Button variant="outline-danger">
+          <Button variant="outline-danger" onClick={deleteTodo}>
             <span>
               <i className="far fa-trash-alt"></i>
             </span>
