@@ -1,4 +1,4 @@
-import { Col, Row, Button } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import { useState } from "react";
 import "../App.css";
 import SearchBarComponent from "../components/SearchBarComponent";
@@ -131,12 +131,6 @@ const HomeScreen = (props) => {
 
       <Row className="my-4 d-flex justify-content-center">
         <SearchBarComponent handleTextChange={handleTextChange} />
-        <Button>
-          <i className="fas fa-plus"></i>
-        </Button>
-        <Button>
-          <i className="far fa-trash-alt"></i>
-        </Button>
       </Row>
 
       <Row>
