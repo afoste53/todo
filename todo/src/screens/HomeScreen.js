@@ -3,7 +3,6 @@ import { useState } from "react";
 import "../App.css";
 import SearchBarComponent from "../components/SearchBarComponent";
 import TodoListComponent from "../components/TodoListComponent";
-//import { todos } from "../data/todo_data_1";
 
 const HomeScreen = (props) => {
   let [todos, setTodos] = useState([
@@ -125,10 +124,6 @@ const HomeScreen = (props) => {
 
   return (
     <div className="App">
-      <header className="App-header bg-navyish">
-        <h1>Gabe's Todos</h1>
-      </header>
-
       <Row className="my-4 d-flex justify-content-center">
         <SearchBarComponent handleTextChange={handleTextChange} />
       </Row>
