@@ -13,9 +13,17 @@
   margin-bottomn: 1rem;
 }
 
+.login-register-container {
+  width: 40vw !important;
+}
+
 .bg-navyish {
   background-color: #282c34 !important;
   color: white;
+}
+
+.error-text {
+  color: red;
 }
 
 .search-bar {
@@ -35,3 +43,4 @@
 .high-priority-todo {
   background: rgba(255, 0, 0, 0.2) !important;
 }
+
