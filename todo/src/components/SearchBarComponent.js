@@ -22,14 +22,9 @@ const SearchBarComponent = ({ handleTextChange }) => {
             size="lg"
           />
           <InputGroup.Append className="d-flex align-=content-center">
-            <ButtonGroup>
-              <Button variant="outline-success" onClick={() => setModal(true)}>
-                <i className="fas fa-plus"></i>
-              </Button>
-              <Button variant="outline-danger">
-                <i className="far fa-trash-alt"></i>
-              </Button>
-            </ButtonGroup>
+            <Button variant="outline-success" onClick={() => setModal(true)}>
+              <i className="fas fa-plus"></i>
+            </Button>
           </InputGroup.Append>
         </InputGroup>
       </Form>
