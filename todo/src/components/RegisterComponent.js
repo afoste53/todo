@@ -1,7 +1,9 @@
 import { Form, FormControl, Button, Row, Container } from "react-bootstrap";
+import firebase from "../firebase";
 import { useState } from "react";
+import { withRouter } from "react-router";
 
-const RegisterComponent = ({ setHasAccount }) => {
+const RegisterComponent = ({ setHasAccount, history }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,13 +30,16 @@ const RegisterComponent = ({ setHasAccount }) => {
       setErrors("Passwords do not match");
     }
 
-    // create new user
-    const createdUser = await this.auth.createUserWithEmailAndPassword(
-      email,
-      password
-    );
-    // update newly created user to include the name provided by user
-    return await createdUser.user.updateProfile({ displayName: name });
+    try {
+      // create new user
+      const createdUser = await firebase.register(name, email, password);
+      // update newly created user to include the name provided by user
+      await createdUser.user.updateProfile({ displayName: name });
+      history.push("/");
+    } catch (e) {
+      console.error("Auth Error: ", e);
+      setFirebaseErrors(e.message);
+    }
   };
 
   return (
@@ -89,4 +94,4 @@ const RegisterComponent = ({ setHasAccount }) => {
   );
 };
 
-export default RegisterComponent;
+export default withRouter(RegisterComponent);

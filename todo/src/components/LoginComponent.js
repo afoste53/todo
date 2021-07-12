@@ -1,8 +1,9 @@
 import { useState } from "react";
 import firebase from "../firebase";
 import { Container, Form, Button, Row, FormControl } from "react-bootstrap";
+import { withRouter } from "react-router";
 
-const LoginComponent = ({ setHasAccount }) => {
+const LoginComponent = ({ setHasAccount, history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firebaseErrors, setFirebaseErrors] = useState(null);
@@ -17,6 +18,7 @@ const LoginComponent = ({ setHasAccount }) => {
     e.preventDefault();
     try {
       await firebase.login(email, password);
+      history.push("/");
     } catch (e) {
       console.error("Auth Error: ", e);
       setFirebaseErrors(e.message);
@@ -58,4 +60,4 @@ const LoginComponent = ({ setHasAccount }) => {
   );
 };
 
-export default LoginComponent;
+export default withRouter(LoginComponent);
