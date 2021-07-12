@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { FirebaseContext } from "../firebase";
-import { Button, Row } from "react-bootstrap";
+import { Button, Navbar } from "react-bootstrap";
 import { withRouter } from "react-router";
 
 const HeaderComponent = ({ history }) => {
@@ -25,18 +25,45 @@ const HeaderComponent = ({ history }) => {
   }, [user]);
 
   return (
-    <header className="App-header bg-navyish d-flex flex-row">
-      <h1>
+    <Navbar className="App-header bg-navyish p-4">
+      <Navbar.Brand href="/">
+        <h1>
+          {loggedIn
+            ? `${user.displayName}'s Todos`
+            : "Catchy Name For Todo App"}
+        </h1>
+      </Navbar.Brand>
+      <Navbar.Collapse className="justify-content-end">
+        {loggedIn && (
+          <Button
+            onClick={handleLogout}
+            variant="outline-dark"
+            className="text-white"
+          >
+            Logout
+          </Button>
+        )}
+      </Navbar.Collapse>
+    </Navbar>
+  );
+};
+
+/*
+*
+*
+    <Navbar className="App-header bg-navyish d-flex flex-row align-items-center">
+      <h1 className="mr-auto">
         {user && console.log(user)}
         {loggedIn ? `${user.displayName}'s Todos` : "Catchy Name For Todo App"}
       </h1>
       {loggedIn && (
-        <Button onClick={handleLogout} className="justify-self-end">
+        <Button onClick={handleLogout} className="ml-auto">
           Logout
         </Button>
       )}
-    </header>
-  );
-};
+    </Navbar>
+*
+*
+* */
 
 export default withRouter(HeaderComponent);
