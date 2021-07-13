@@ -3,6 +3,7 @@ import { Modal, Button, Form, FormControl, ButtonGroup } from "react-bootstrap";
 import { FirebaseContext } from "../firebase";
 
 const AddTodoComponent = ({ show, setShow }) => {
+  const [saveTodoErrors, setSaveTodoErrors] = useState(null);
   const [title, setTitle] = useState("");
   const [todoText, setTodoText] = useState("");
   const [priority, setPriority] = useState("normal");
@@ -14,6 +15,7 @@ const AddTodoComponent = ({ show, setShow }) => {
     setTitle("");
     setTodoText("");
     setPriority("normal");
+    setSaveTodoErrors(null);
   };
 
   const handleInputChange = (e) => {
@@ -27,6 +29,10 @@ const AddTodoComponent = ({ show, setShow }) => {
   };
 
   const handleSaveTodo = () => {
+    if (title == "") {
+      setSaveTodoErrors("Must include a title");
+      return;
+    }
     const newTodo = {
       title,
       todoText,
@@ -53,8 +59,11 @@ const AddTodoComponent = ({ show, setShow }) => {
             value={title}
             name="title"
             onChange={handleInputChange}
-            className="my-1"
+            className="my-1 add-todo-title"
           />
+          {saveTodoErrors && (
+            <p className="error-text mx-3">Must include a title</p>
+          )}
           <FormControl
             type="textarea"
             placeholder="Add some text if you like..."
