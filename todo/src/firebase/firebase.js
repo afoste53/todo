@@ -1,5 +1,7 @@
 import app from "firebase/app";
 import "firebase/auth";
+import "firebase/firestore";
+
 import firebaseConfig from "./config";
 
 class Firebase {
@@ -7,6 +9,7 @@ class Firebase {
     // initialize app w/ config
     app.initializeApp(firebaseConfig);
     this.auth = app.auth();
+    this.db = app.firestore();
   }
 
   async register(name, email, password) {

@@ -37,6 +37,13 @@
 }
 
 .high-priority-todo {
-  background: rgba(255, 0, 0, 0.2) !important;
+  background: crimson;
 }
 
+.normal-priority-todo {
+  background: goldenrod;
+}
+
+.low-priority-todo {
+  background: aquamarine;
+}

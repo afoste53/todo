@@ -6,7 +6,15 @@ const TodoComponent = ({ todo, deleteTodo }) => {
       <Card.Header className="bg-navyish">
         <Card.Title>{todo.title}</Card.Title>
       </Card.Header>
-      <Card.Body className={todo.priority === "high" && "high-priority-todo"}>
+      <Card.Body
+        className={
+          todo.priority === "high"
+            ? "high-priority-todo"
+            : todo.priority == "normal"
+            ? "normal-priority-todo"
+            : "low-priority-todo"
+        }
+      >
         {todo.text}
       </Card.Body>
       <Card.Footer>
