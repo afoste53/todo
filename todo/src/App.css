@@ -32,18 +32,23 @@
 
 .todo {
   height: 35vh;
-  width: 30vw;
-  overflow: auto
+  width: 200px;
+}
+
+.todo:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+  z-index: 1;
 }
 
 .high-priority-todo {
-  background: crimson;
+  background: rgba(220,20,60,0.5);
 }
 
 .normal-priority-todo {
-  background: goldenrod;
+  background: rgba(218,165,32,0.6);
 }
 
 .low-priority-todo {
-  background: aquamarine;
+  background: rgba(127,255,212,.6);
 }
