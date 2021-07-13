@@ -27,7 +27,7 @@ const HeaderComponent = ({ history }) => {
   return (
     <Navbar className="App-header bg-navyish p-4">
       <Navbar.Brand href="/">
-        <h1>
+        <h1 className="text-white">
           {loggedIn
             ? `${user.displayName}'s Todos`
             : "Catchy Name For Todo App"}
