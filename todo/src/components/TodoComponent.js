@@ -81,6 +81,11 @@ const TodoComponent = ({ todo }) => {
     });
   };
 
+  const saveExpandedTodo = () => {
+    handleSave();
+    setEditExpandedTodo(false);
+  };
+
   return (
     <>
       <Card className="todo m-1">
@@ -192,10 +197,22 @@ const TodoComponent = ({ todo }) => {
       </Modal>
 
       <Modal show={showExpandedTodo} onHide={handleCloseExpandedTodo}>
-        <Modal.Header className="d-flex justify-content-center bg-navyish">
+        <Modal.Header
+          className={
+            editExpandedTodo
+              ? "d-flex justify-content-start bg-navyish"
+              : "d-flex justify-content-center bg-navyish"
+          }
+        >
           <Modal.Title>
             {editExpandedTodo ? (
-              <FormControl type="text" placeholder={todo.title} />
+              <FormControl
+                type="text"
+                placeholder={todo.title}
+                value={editTitle}
+                name="title"
+                onChange={handleInputChange}
+              />
             ) : (
               todo.title
             )}
@@ -210,7 +227,50 @@ const TodoComponent = ({ todo }) => {
               : "low-priority-todo"
           }
         >
-          {todo.todoText}
+          {editExpandedTodo ? (
+            <>
+              <FormControl
+                type="text"
+                value={editTodoText}
+                onChange={handleInputChange}
+                name="todoText"
+              />
+              <ButtonGroup className="d-flex justify-self-center bg-white mt-2">
+                <Button
+                  variant={
+                    editPriority === "low" ? "success" : "outline-success"
+                  }
+                  name="low"
+                  value="low"
+                  onClick={handlePriorityChange}
+                >
+                  Low Priority
+                </Button>
+                <Button
+                  variant={
+                    editPriority === "normal" ? "warning" : "outline-warning"
+                  }
+                  name="normal"
+                  value="normal"
+                  onClick={handlePriorityChange}
+                >
+                  Normal Priority
+                </Button>
+                <Button
+                  variant={
+                    editPriority === "high" ? "danger" : "outline-danger"
+                  }
+                  name="high"
+                  value="high"
+                  onClick={handlePriorityChange}
+                >
+                  High Priority
+                </Button>
+              </ButtonGroup>
+            </>
+          ) : (
+            todo.todoText
+          )}
         </Modal.Body>
         <Modal.Footer className="d-flex justify-content-center">
           <ButtonGroup className="d-flex justify-content-around">
@@ -219,11 +279,22 @@ const TodoComponent = ({ todo }) => {
                 <i className="far fa-trash-alt" />
               </span>
             </Button>
-            <Button variant="outline-warning" onClick={null}>
-              <span>
-                <i className="far fa-edit" />
-              </span>
-            </Button>
+            {editExpandedTodo ? (
+              <Button variant="outline-success" onClick={saveExpandedTodo}>
+                <span>
+                  <i className="far fa-save"></i>
+                </span>
+              </Button>
+            ) : (
+              <Button
+                variant="outline-warning"
+                onClick={(e) => setEditExpandedTodo(true)}
+              >
+                <span>
+                  <i className="far fa-edit" />
+                </span>
+              </Button>
+            )}
             <Button variant="outline-success" onClick={completeExpandedTodo}>
               <span>
                 <i className="far fa-check-circle" />
