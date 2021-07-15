@@ -72,7 +72,6 @@ const AddTodoComponent = ({ show, setShow }) => {
             onChange={handleInputChange}
             className="my-1"
           />
-
           <ButtonGroup>
             <Button
               variant={priority === "low" ? "success" : "outline-success"}
