@@ -17,6 +17,9 @@ const TodoComponent = ({ todo }) => {
   const [editTodoText, setEditTodoText] = useState(todo.todoText);
   const [editPriority, setEditPriority] = useState(todo.priority);
 
+  const [showExpandedTodo, setShowExpandedTodo] = useState(false);
+  const [editExpandedTodo, setEditExpandedTodo] = useState(false);
+
   const deleteTodo = async () => {
     const todoRef = firebase.db.collection("todos").doc(todo.id);
     await todoRef
@@ -52,6 +55,23 @@ const TodoComponent = ({ todo }) => {
     setShowEditModal(false);
   };
 
+  const expandTodo = () => {
+    setShowExpandedTodo(true);
+  };
+
+  const handleCloseExpandedTodo = () => {
+    setShowExpandedTodo(false);
+  };
+
+  const deleteExpandedTodo = async () => {
+    await deleteTodo();
+    handleCloseExpandedTodo();
+  };
+  const completeExpandedTodo = () => {
+    completeTodo();
+    handleCloseExpandedTodo();
+  };
+
   const completeTodo = () => {
     const todoRef = firebase.db.collection("todos").doc(todo.id);
     todoRef.get().then((doc) => {
@@ -64,7 +84,7 @@ const TodoComponent = ({ todo }) => {
   return (
     <>
       <Card className="todo m-1">
-        <Card.Header className="bg-navyish">
+        <Card.Header className="bg-navyish" onClick={expandTodo}>
           <Card.Title>
             {todo.title.length > 15
               ? todo.title.slice(0, 14) + "..."
@@ -72,13 +92,13 @@ const TodoComponent = ({ todo }) => {
           </Card.Title>
         </Card.Header>
         <Card.Body
+          onClick={expandTodo}
           className={
-            "todo-small-body" &&
-            (todo.priority === "high"
+            todo.priority === "high"
               ? "high-priority-todo"
               : todo.priority == "normal"
               ? "normal-priority-todo"
-              : "low-priority-todo")
+              : "low-priority-todo"
           }
         >
           {todo.todoText.length > 35
@@ -168,6 +188,54 @@ const TodoComponent = ({ todo }) => {
           <Button variant="primary" onClick={handleSave}>
             Save Changes
           </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showExpandedTodo} onHide={handleCloseExpandedTodo}>
+        <Modal.Header className="d-flex justify-content-center bg-navyish">
+          <Modal.Title>
+            {editExpandedTodo ? (
+              <FormControl type="text" placeholder={todo.title} />
+            ) : (
+              todo.title
+            )}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body
+          className={
+            todo.priority === "high"
+              ? "high-priority-todo"
+              : todo.priority == "normal"
+              ? "normal-priority-todo"
+              : "low-priority-todo"
+          }
+        >
+          {todo.todoText}
+        </Modal.Body>
+        <Modal.Footer className="d-flex justify-content-center">
+          <ButtonGroup className="d-flex justify-content-around">
+            <Button variant="outline-danger" onClick={deleteExpandedTodo}>
+              <span>
+                <i className="far fa-trash-alt" />
+              </span>
+            </Button>
+            <Button variant="outline-warning" onClick={null}>
+              <span>
+                <i className="far fa-edit" />
+              </span>
+            </Button>
+            <Button variant="outline-success" onClick={completeExpandedTodo}>
+              <span>
+                <i className="far fa-check-circle" />
+              </span>
+            </Button>
+            <Button
+              variant="outline-secondary"
+              onClick={handleCloseExpandedTodo}
+            >
+              <i className="far fa-window-close"></i>
+            </Button>
+          </ButtonGroup>
         </Modal.Footer>
       </Modal>
     </>
