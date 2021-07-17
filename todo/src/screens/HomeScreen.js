@@ -11,18 +11,6 @@ const HomeScreen = (props) => {
     setSearchText(e.target.value);
   };
 
-  const deleteTodo = (e) => {
-    console.log();
-    setTodos(
-      todos.filter(
-        (t) =>
-          t.title !==
-          e.target.parentElement.parentElement.parentElement.firstChild
-            .firstChild.textContent
-      )
-    );
-  };
-
   return (
     <div className="App">
       <Row className="my-4 d-flex justify-content-center">
@@ -30,11 +18,7 @@ const HomeScreen = (props) => {
       </Row>
 
       <Row>
-        <TodoListComponent
-          todos={todos}
-          searchTerm={searchText}
-          deleteTodo={deleteTodo}
-        />
+        <TodoListComponent searchTerm={searchText} />
       </Row>
     </div>
   );
